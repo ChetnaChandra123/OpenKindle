@@ -1,0 +1,14 @@
+# Normalize line endings for all text files
+* text=auto
+
+# Always use LF for JavaScript and configuration files
+*.js text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.ts text eol=lf
+*.jsx text eol=lf
+*.tsx text eol=lf
+
+# Windows batch files should keep CRLF
+*.bat text eol=crlf
