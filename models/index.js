@@ -34,4 +34,7 @@ Purchase.belongsTo(Book, { foreignKey: 'bookId' });
 User.hasMany(Activity, { foreignKey: 'userId' });
 Activity.belongsTo(User, { foreignKey: 'userId' });
 
+Book.hasMany(Activity, { foreignKey: 'bookId' });
+Activity.belongsTo(Book, { foreignKey: 'bookId' });
+
 module.exports = { sequelize, User, Book, Purchase, Activity };

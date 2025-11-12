@@ -12,6 +12,10 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+      bookId: {                      // ✅ add this line
+      type: DataTypes.INTEGER,
+      allowNull: true,  // optional, since not all activities involve books
+    },
     action: {
       type: DataTypes.STRING, // e.g., "viewed_book", "purchased_book"
       allowNull: false,
@@ -25,6 +29,18 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.NOW,
     },
   });
+
+    // 🔗 Associations
+  Activity.associate = (models) => {
+    Activity.belongsTo(models.User, {
+      foreignKey: "userId",
+      onDelete: "CASCADE",
+    });
+    Activity.belongsTo(models.Book, {
+      foreignKey: "bookId",
+      onDelete: "SET NULL",
+    });
+  };
 
   return Activity;
 };
