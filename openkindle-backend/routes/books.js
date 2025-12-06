@@ -3,24 +3,27 @@ const router = express.Router();
 const { Book, User, Purchase } = require('../models');
 const authenticate = require("../middleware/authMiddleware"); // ✅ add this
 const logActivity = require('../utils/logActivity');
+const { getMyBooks } = require("../controllers/bookController");
 
+router.get("/my-books", authenticate, getMyBooks);
 
 // ➕ Add a new book
 router.post('/', authenticate, async (req, res) => {
   try {
-    const { title, author, price } = req.body;
+    const { title, author, price, coverUrl, genre } = req.body;
     
     // Basic validation
     if (!title || !author || !price) {
       return res.status(400).json({ error: "title, author, and price are required" });
     }
-
     
     // Create book linked to the authenticated user
     const book = await Book.create({
       title,
       author,
       price,
+      coverUrl: coverUrl || null,
+      genre: genre || null,
       userId: req.user.id, // comes from JWT token
     });
 

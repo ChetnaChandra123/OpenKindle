@@ -1,11 +1,9 @@
-// src/api/api.js
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api", // backend URL
+  baseURL: "http://localhost:5000/api",
 });
 
-// attach token to every request
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) config.headers.Authorization = `Bearer ${token}`;
@@ -13,18 +11,20 @@ API.interceptors.request.use((config) => {
 });
 
 API.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response && error.response.status === 401) {
-      localStorage.removeItem("token");
-      window.location.href = "/login";
+  res => res,
+  err => {
+    // global 401 handling
+    if (err.response && err.response.status === 401) {
+      localStorage.removeItem('token');
+      // optional: redirect to login
     }
-    return Promise.reject(error);
+    return Promise.reject(err);
   }
 );
 
-
 export const fetchActivities = () => API.get("/activities");
 export const fetchBooks = () => API.get("/books");
+export const purchaseBook = (bookId) => API.post("/purchases", { bookId });
+export const fetchMyBooks = () => API.get("/purchases/mybooks");
 
 export default API;

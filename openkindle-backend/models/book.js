@@ -22,6 +22,15 @@ module.exports = (sequelize) => {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
+            // NEW: cover URL and genre
+      coverUrl: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      genre: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,

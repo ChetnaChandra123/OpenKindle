@@ -36,7 +36,7 @@ router.get("/", async (req, res) => {
   try {
     const activities = await Activity.findAll({
       where: { userId: req.user.id },
-      include: [Book],
+      include: [{ model: Book }],
       order: [["createdAt", "DESC"]],
     });
 

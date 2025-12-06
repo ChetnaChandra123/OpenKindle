@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.book-cover-img {
+  width: 100%;
+  height: 180px;        /* small height */
+  object-fit: contain;  /* show full cover, don't crop */
+  background: #f4f4f4;  /* fallback */
+  padding: 10px;
+}
